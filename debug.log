@@ -1,0 +1,4 @@
+[0919/092148.297:ERROR:prune_crash_reports.cc(36)] PruneCrashReportDatabase: Failed to get pending reports
+[0919/170631.145:ERROR:file_io_win.cc(162)] CreateFile C:\Users\25325\AppData\Local\Temp\scoped_dir1832_1860486359\Crashpad\settings.dat: 系统找不到指定的路径。 (0x3)
+[0919/170631.545:ERROR:file_io_win.cc(171)] CreateFile C:\Users\25325\AppData\Local\Temp\scoped_dir1832_1860486359\Crashpad\reports\18301b50-0268-424a-bd7c-577febf2fe4a.dmp: 系统找不到指定的路径。 (0x3)
+[0919/170631.545:ERROR:crash_report_exception_handler.cc(97)] PrepareNewCrashReport failed
