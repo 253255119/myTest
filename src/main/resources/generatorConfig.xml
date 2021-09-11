@@ -38,7 +38,7 @@
 
         <!-- jdbc连接 -->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://192.168.188.134:3306/test"
+                        connectionURL="jdbc:mysql://127.0.0.1:3306/test"
                         userId="root"
                         password="root" />
         <!-- 类型转换 -->
@@ -73,7 +73,7 @@
 <!--            &lt;!&ndash; 数据库表主键 &ndash;&gt;-->
 <!--            <generatedKey column="id" sqlStatement="Mysql" identity="true" />-->
 <!--        </table>-->
-        <table tableName="user_info_test"
+        <table tableName="user_test"
                enableCountByExample="false"
                enableUpdateByExample="false"
                enableDeleteByExample="false"

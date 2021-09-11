@@ -15,7 +15,11 @@ import org.apache.http.util.EntityUtils;
 
 
 import java.io.IOException;
-
+/**
+ * @Author: 25325
+ * @Description:http工具类
+ * @DateTime: 2021-09-11 11:29
+ **/
 public class HttpRequest {
     private static String encoding="utf-8";
     private static String body;

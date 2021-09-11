@@ -9,7 +9,11 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import java.io.IOException;
 import java.io.InputStream;
-
+/**
+ * @Author: 25325
+ * @Description:Mybaits工具栏
+ * @DateTime: 2021-09-11 11:29
+ **/
 public class MybaitsUtil {
 
     private static String resource = "mybatis-config.xml";
@@ -26,7 +30,7 @@ public class MybaitsUtil {
         return null;
     }
 
-    private static void closeSqlSession(SqlSession sqlSession) {
+    public static void closeSqlSession(SqlSession sqlSession) {
         if (sqlSession != null) {
             sqlSession.commit();
             sqlSession.close();
@@ -37,9 +41,11 @@ public class MybaitsUtil {
         UserInfoTest userInfoTest = new UserInfoTest();
         userInfoTest.setUserName("123456");
         userInfoTest.setTableName("user_info_test");
-        UserInfoTestMapper mapper = createSqlSession("2").getMapper(UserInfoTestMapper.class);
+        SqlSession sqlSession=createSqlSession("2");
+        UserInfoTestMapper mapper = sqlSession.getMapper(UserInfoTestMapper.class);
         System.out.println("selectByUserName:>>>>>>" + mapper.selectByUserName(userInfoTest));
         System.out.println("selectByUserName1:>>>>>>" + mapper.selectByUserName1(userInfoTest));
         System.out.println("selectByUserName2:>>>>>>" + mapper.selectByUserName2("1233"));
+        MybaitsUtil.closeSqlSession(sqlSession);
     }
 }
