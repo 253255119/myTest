@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.MockResponseMapper">
+  <resultMap id="BaseResultMap" type="com.example.demo.models.MockResponse">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="mock_id" jdbcType="INTEGER" property="mockId" />
+    <result column="res_name" jdbcType="VARCHAR" property="resName" />
+    <result column="http_code" jdbcType="INTEGER" property="httpCode" />
+    <result column="res_header" jdbcType="VARCHAR" property="resHeader" />
+    <result column="res_temporize" jdbcType="INTEGER" property="resTemporize" />
+    <result column="res_condition" jdbcType="VARCHAR" property="resCondition" />
+    <result column="if_check" jdbcType="INTEGER" property="ifCheck" />
+    <result column="if_valid" jdbcType="INTEGER" property="ifValid" />
+    <result column="if_use_variables" jdbcType="INTEGER" property="ifUseVariables" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.example.demo.models.MockResponse">
+    <result column="res_body" jdbcType="LONGVARCHAR" property="resBody" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, mock_id, res_name, http_code, res_header, res_temporize, res_condition, if_check, 
+    if_valid, if_use_variables
+  </sql>
+  <sql id="Blob_Column_List">
+    res_body
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from my_test.mock_response
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectByMockId" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from my_test.mock_response
+    where  mock_id = #{mockId,jdbcType=INTEGER} and if_valid = 1
+  </select>
+  <select id="selectByMockIdAndCheck" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from my_test.mock_response
+    where  mock_id = #{mockId,jdbcType=INTEGER} and if_valid = 1   and if_check = 1
+  </select>
+  <select id="selectByMockIdAndNotCheck" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from my_test.mock_response
+    where  mock_id = #{mockId,jdbcType=INTEGER} and if_valid = 1   and if_check != 1
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from mock_response
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.example.demo.models.MockResponse">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into mock_response (mock_id, res_name, http_code, 
+      res_header, res_temporize, res_condition, 
+      if_check, if_valid, if_use_variables, 
+      res_body)
+    values (#{mockId,jdbcType=INTEGER}, #{resName,jdbcType=VARCHAR}, #{httpCode,jdbcType=INTEGER}, 
+      #{resHeader,jdbcType=VARCHAR}, #{resTemporize,jdbcType=INTEGER}, #{resCondition,jdbcType=VARCHAR}, 
+      #{ifCheck,jdbcType=INTEGER}, #{ifValid,jdbcType=INTEGER}, #{ifUseVariables,jdbcType=INTEGER}, 
+      #{resBody,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.demo.models.MockResponse">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into mock_response
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="mockId != null">
+        mock_id,
+      </if>
+      <if test="resName != null">
+        res_name,
+      </if>
+      <if test="httpCode != null">
+        http_code,
+      </if>
+      <if test="resHeader != null">
+        res_header,
+      </if>
+      <if test="resTemporize != null">
+        res_temporize,
+      </if>
+      <if test="resCondition != null">
+        res_condition,
+      </if>
+      <if test="ifCheck != null">
+        if_check,
+      </if>
+      <if test="ifValid != null">
+        if_valid,
+      </if>
+      <if test="ifUseVariables != null">
+        if_use_variables,
+      </if>
+      <if test="resBody != null">
+        res_body,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="mockId != null">
+        #{mockId,jdbcType=INTEGER},
+      </if>
+      <if test="resName != null">
+        #{resName,jdbcType=VARCHAR},
+      </if>
+      <if test="httpCode != null">
+        #{httpCode,jdbcType=INTEGER},
+      </if>
+      <if test="resHeader != null">
+        #{resHeader,jdbcType=VARCHAR},
+      </if>
+      <if test="resTemporize != null">
+        #{resTemporize,jdbcType=INTEGER},
+      </if>
+      <if test="resCondition != null">
+        #{resCondition,jdbcType=VARCHAR},
+      </if>
+      <if test="ifCheck != null">
+        #{ifCheck,jdbcType=INTEGER},
+      </if>
+      <if test="ifValid != null">
+        #{ifValid,jdbcType=INTEGER},
+      </if>
+      <if test="ifUseVariables != null">
+        #{ifUseVariables,jdbcType=INTEGER},
+      </if>
+      <if test="resBody != null">
+        #{resBody,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.models.MockResponse">
+    update mock_response
+    <set>
+      <if test="mockId != null">
+        mock_id = #{mockId,jdbcType=INTEGER},
+      </if>
+      <if test="resName != null">
+        res_name = #{resName,jdbcType=VARCHAR},
+      </if>
+      <if test="httpCode != null">
+        http_code = #{httpCode,jdbcType=INTEGER},
+      </if>
+      <if test="resHeader != null">
+        res_header = #{resHeader,jdbcType=VARCHAR},
+      </if>
+      <if test="resTemporize != null">
+        res_temporize = #{resTemporize,jdbcType=INTEGER},
+      </if>
+      <if test="resCondition != null">
+        res_condition = #{resCondition,jdbcType=VARCHAR},
+      </if>
+      <if test="ifCheck != null">
+        if_check = #{ifCheck,jdbcType=INTEGER},
+      </if>
+      <if test="ifValid != null">
+        if_valid = #{ifValid,jdbcType=INTEGER},
+      </if>
+      <if test="ifUseVariables != null">
+        if_use_variables = #{ifUseVariables,jdbcType=INTEGER},
+      </if>
+      <if test="resBody != null">
+        res_body = #{resBody,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.example.demo.models.MockResponse">
+    update mock_response
+    set mock_id = #{mockId,jdbcType=INTEGER},
+      res_name = #{resName,jdbcType=VARCHAR},
+      http_code = #{httpCode,jdbcType=INTEGER},
+      res_header = #{resHeader,jdbcType=VARCHAR},
+      res_temporize = #{resTemporize,jdbcType=INTEGER},
+      res_condition = #{resCondition,jdbcType=VARCHAR},
+      if_check = #{ifCheck,jdbcType=INTEGER},
+      if_valid = #{ifValid,jdbcType=INTEGER},
+      if_use_variables = #{ifUseVariables,jdbcType=INTEGER},
+      res_body = #{resBody,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.demo.models.MockResponse">
+    update mock_response
+    set mock_id = #{mockId,jdbcType=INTEGER},
+      res_name = #{resName,jdbcType=VARCHAR},
+      http_code = #{httpCode,jdbcType=INTEGER},
+      res_header = #{resHeader,jdbcType=VARCHAR},
+      res_temporize = #{resTemporize,jdbcType=INTEGER},
+      res_condition = #{resCondition,jdbcType=VARCHAR},
+      if_check = #{ifCheck,jdbcType=INTEGER},
+      if_valid = #{ifValid,jdbcType=INTEGER},
+      if_use_variables = #{ifUseVariables,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

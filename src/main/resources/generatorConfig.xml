@@ -38,7 +38,7 @@
 
         <!-- jdbc连接 -->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://127.0.0.1:3306/test"
+                        connectionURL="jdbc:mysql://127.0.0.1:3306/my_test"
                         userId="root"
                         password="root" />
         <!-- 类型转换 -->
@@ -73,7 +73,18 @@
 <!--            &lt;!&ndash; 数据库表主键 &ndash;&gt;-->
 <!--            <generatedKey column="id" sqlStatement="Mysql" identity="true" />-->
 <!--        </table>-->
-        <table tableName="user_test"
+        <table tableName="mock_response"
+               enableCountByExample="false"
+               enableUpdateByExample="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false"
+               selectByExampleQueryId="false">
+
+            <property name="useActualColumnNames" value="false" />
+            <!-- 数据库表主键 -->
+            <generatedKey column="id" sqlStatement="Mysql" identity="true" />
+        </table>
+        <table tableName="mock_configuration"
                enableCountByExample="false"
                enableUpdateByExample="false"
                enableDeleteByExample="false"
